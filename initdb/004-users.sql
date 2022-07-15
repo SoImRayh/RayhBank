@@ -1,0 +1,2 @@
+﻿INSERT INTO "user" (id, username, auth_key, password_hash, confirmation_token, status, superadmin, created_at, updated_at, registration_ip, bind_to_ip, email, email_confirmed) VALUES
+(1, 'superadmin', 'kz2px152FAWlkHbkZoCiXgBAd-S8SSjF', '$2y$13$MhlYe12xkGFnSeK0sO2up.Y9kAD9Ct6JS1i9VLP7YAqd1dFsSylz2', NULL, 1, 1, 1426062188, 1426062188, NULL, NULL, NULL, 0);
