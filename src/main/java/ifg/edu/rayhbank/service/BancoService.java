@@ -3,6 +3,8 @@ package ifg.edu.rayhbank.service;
 import ifg.edu.rayhbank.domain.Banco;
 import ifg.edu.rayhbank.repository.BancoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,8 +18,8 @@ public class BancoService {
 
     private final BancoRepository bancoRepository;
 
-    public List<Banco> listAll(){
-        return bancoRepository.findAll();
+    public Page<Banco> listAll(Pageable pageable){
+        return bancoRepository.findAll(pageable);
     }
 
     public Banco findById(Long id){

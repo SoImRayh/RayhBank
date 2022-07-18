@@ -3,6 +3,8 @@ package ifg.edu.rayhbank.controller;
 import ifg.edu.rayhbank.domain.Banco;
 import ifg.edu.rayhbank.service.BancoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -20,8 +22,8 @@ public class BancoController {
 
 
     @GetMapping
-    public ResponseEntity<List<Banco>> list(){
-        return ResponseEntity.ok(bancoService.listAll());
+    public ResponseEntity<Page<Banco>> list(Pageable pageable){
+        return ResponseEntity.ok(bancoService.listAll(pageable));
     }
 
     @GetMapping(path = "/{id}")
