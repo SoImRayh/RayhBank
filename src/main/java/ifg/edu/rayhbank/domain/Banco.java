@@ -15,9 +15,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Banco {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "nome")
     @NonNull

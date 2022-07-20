@@ -1,9 +1,9 @@
 package ifg.edu.rayhbank.repository;
 
-import ifg.edu.rayhbank.domain.Banco;
+import ifg.edu.rayhbank.domain.Agencia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BancoRepository extends JpaRepository<Banco, Integer> {
+public interface AgenciaRepository extends JpaRepository<Agencia, Integer> {
 }

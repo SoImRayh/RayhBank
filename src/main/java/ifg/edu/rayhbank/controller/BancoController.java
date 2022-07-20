@@ -20,20 +20,32 @@ public class BancoController {
 
     private final BancoService bancoService;
 
-
+    //listando todos os bancos
     @GetMapping
     public ResponseEntity<Page<Banco>> list(Pageable pageable){
         return ResponseEntity.ok(bancoService.listAll(pageable));
     }
-
+    //procurando um banco espe cifico por ID
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Banco> findById(@PathVariable Long id){
+    public ResponseEntity<Banco> findById(@PathVariable Integer id){
         return ResponseEntity.ok(bancoService.findById(id));
     }
-
-    @PostMapping
+    //adicionando novo model(banco) ao DB
+    @PostMapping("/new")
     public ResponseEntity<Banco> salvar(@RequestBody Banco banco){
         return new ResponseEntity<>(bancoService.save(banco), HttpStatus.CREATED);
     }
+    //atualizando um model(banco) no DB
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Banco> update(@RequestBody Banco banco){
+        ;
+        return new ResponseEntity<>(bancoService.update(banco) ,HttpStatus.ACCEPTED);
+    }
 
+        //para deletar algum model (banco) do DB
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Integer id){
+        bancoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

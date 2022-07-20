@@ -22,11 +22,29 @@ public class BancoService {
         return bancoRepository.findAll(pageable);
     }
 
-    public Banco findById(Long id){
+    public Banco findById(Integer id){
     return bancoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "banco não encontrado"));
     }
 
     public Banco save(Banco banco) {
         return bancoRepository.save(banco);
+    }
+
+    public Void delete(Integer id){
+        Banco banco = findById(id);
+        if(banco != null){
+            bancoRepository.delete(banco);
+        }
+        return null;
+    }
+
+    public Banco update(Banco banco) {
+        if(findById(banco.getId()) != null){
+            bancoRepository.save(banco);
+            return banco;
+        }else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "banco nao existente");
+        }
+
     }
 }
