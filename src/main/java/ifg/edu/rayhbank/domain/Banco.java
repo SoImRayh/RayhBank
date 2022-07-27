@@ -25,5 +25,4 @@ public class Banco {
 
     @Column(name = "numero")
     private String numero;
-
 }
