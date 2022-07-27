@@ -2,7 +2,6 @@ package ifg.edu.rayhbank.controller;
 
 
 import ifg.edu.rayhbank.domain.Agencia;
-import ifg.edu.rayhbank.repository.AgenciaRepository;
 import ifg.edu.rayhbank.service.AgenciaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 @RestController
 @RequestMapping("/api/agencias")
 @Component
