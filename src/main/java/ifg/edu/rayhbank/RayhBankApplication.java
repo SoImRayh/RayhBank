@@ -9,7 +9,6 @@ public class RayhBankApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RayhBankApplication.class, args);
-        System.out.println(new BCryptPasswordEncoder().encode("pedro"));
     }
 
 }

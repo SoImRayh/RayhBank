@@ -8,8 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserDetailsServiceImplements implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -18,7 +21,14 @@ public class UserDetailsServiceImplements implements UserDetailsService {
 
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
                 "usuario nao encontrado" + username));
-        return user;
+        /// esse new user é da classe do security e nao do domain
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                user.getAuthorities());
     }
 
 }
