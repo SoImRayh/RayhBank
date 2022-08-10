@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class RayhBankApplication {
 
     public static void main(String[] args) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        System.out.println("\n"+bCryptPasswordEncoder.encode("admin")+"\n");
         SpringApplication.run(RayhBankApplication.class, args);
     }
 

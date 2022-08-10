@@ -21,12 +21,13 @@ public class BancoController {
 
     //listando todos os bancos
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Page<Banco>> list(Pageable pageable){
         return ResponseEntity.ok(bancoService.listAll(pageable));
     }
     //procurando um banco espe cifico por ID
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Banco> findById(@PathVariable Integer id){
         return ResponseEntity.ok(bancoService.findById(id));
     }
