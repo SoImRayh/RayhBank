@@ -21,7 +21,7 @@ public class BancoController {
 
     //listando todos os bancos
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ADMIN_ROLE')")
     public ResponseEntity<Page<Banco>> list(Pageable pageable){
         return ResponseEntity.ok(bancoService.listAll(pageable));
     }
