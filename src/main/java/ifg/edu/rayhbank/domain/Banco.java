@@ -20,7 +20,6 @@ public class Banco {
     private Integer id;
 
     @Column(name = "nome")
-    @NonNull
     private String nome;
 
     @Column(name = "numero")

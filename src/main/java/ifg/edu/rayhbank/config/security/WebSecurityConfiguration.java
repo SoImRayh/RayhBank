@@ -14,12 +14,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
 
+    //desabilitei aqui apenas comentando uma linha de codigo nada mais
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .httpBasic()
                 .and()
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .authorizeHttpRequests()
+                .anyRequest().permitAll()
+                .and()
 //                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
 //                .antMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")

@@ -11,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/bancos")
 @Component
@@ -21,33 +23,39 @@ public class BancoController {
 
     //listando todos os bancos
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ADMIN_ROLE')")
-    public ResponseEntity<Page<Banco>> list(Pageable pageable){
-        return ResponseEntity.ok(bancoService.listAll(pageable));
+    //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public ResponseEntity<List<Banco>> list( ){
+        return ResponseEntity.ok(bancoService.listAll());
     }
+
     //procurando um banco espe cifico por ID
     @GetMapping(path = "/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Banco> findById(@PathVariable Integer id){
         return ResponseEntity.ok(bancoService.findById(id));
     }
+    @GetMapping("/filter")
+    public ResponseEntity<List<Banco>> findWithFilter(@RequestParam String filtro){
+        return ResponseEntity.ok(this.bancoService.findWithFilter(filtro));
+    }
+
     //adicionando novo model(banco) ao DB
-    @PostMapping("/new")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Banco> salvar(@RequestBody Banco banco){
         return new ResponseEntity<>(bancoService.save(banco), HttpStatus.CREATED);
     }
+
     //atualizando um model(banco) no DB
     @PutMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Banco> update(@RequestBody Banco banco){
-        ;
         return new ResponseEntity<>(bancoService.update(banco) ,HttpStatus.ACCEPTED);
     }
 
         //para deletar algum model (banco) do DB
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> excluir(@PathVariable Integer id){
         bancoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -24,8 +24,8 @@ public class AgenciaService {
     private final AgenciaRepository agenciaRepository;
 
 
-    public Page<Agencia> findAll(Pageable pageable) {
-        return agenciaRepository.findAll(pageable);
+    public List<Agencia> findAll( ) {
+        return agenciaRepository.findAll();
     }
 
     public Agencia findById(Integer id) {

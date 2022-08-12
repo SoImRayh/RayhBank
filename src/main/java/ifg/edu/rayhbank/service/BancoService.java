@@ -18,8 +18,8 @@ public class BancoService {
 
     private final BancoRepository bancoRepository;
 
-    public Page<Banco> listAll(Pageable pageable){
-        return bancoRepository.findAll(pageable);
+    public List<Banco> listAll(){
+        return bancoRepository.findAll();
     }
 
     public Banco findById(Integer id){
@@ -40,11 +40,16 @@ public class BancoService {
 
     public Banco update(Banco banco) {
         if(findById(banco.getId()) != null){
+
             bancoRepository.save(banco);
             return banco;
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "banco nao existente");
         }
 
+    }
+
+    public List<Banco> findWithFilter(String filtro){
+        return bancoRepository.findByNomeContaining(filtro);
     }
 }

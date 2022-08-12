@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/agencias")
 @Component
@@ -17,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class AgenciaController {
     private final AgenciaService agenciaService;
 
-    @GetMapping
-    public ResponseEntity<Page<Agencia>> findall(Pageable pageable){
-        return new ResponseEntity<>(agenciaService.findAll(pageable) , HttpStatus.OK);
+    @GetMapping("")
+    public ResponseEntity<List<Agencia>> findall(Pageable pageable){
+        return ResponseEntity.ok(agenciaService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -27,7 +30,7 @@ public class AgenciaController {
         return new ResponseEntity<>(agenciaService.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/new")
+    @PostMapping("")
     public ResponseEntity<Agencia> create(@RequestBody Agencia agencia){
         return new ResponseEntity<>(agenciaService.save(agencia), HttpStatus.CREATED);
     }

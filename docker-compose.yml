@@ -1,6 +1,13 @@
 version: "3.3"
 
 services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    volumes:
+      - jenkins:/jenkins
+    ports:
+      - "9090:8080"
   db:
     container_name: postgres
     image: phdcoder/postgresbr
@@ -29,4 +36,6 @@ services:
 
 volumes:
   base_cliente:
+    external: true
+  jenkins:
     external: true

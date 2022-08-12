@@ -24,7 +24,7 @@ public class Agencia {
 
     @NotNull
     @Column(name = "id_banco")
-    private Integer idBanco;
+    private int banco_id;
 
     @NotNull
     @Column(name = "endereco")
@@ -49,6 +49,6 @@ public class Agencia {
     @NotNull
     @NotBlank
     @Column(name = "nome_agencia")
-    private String nomeAgencia;
+    private String nome_agencia;
 
 }
