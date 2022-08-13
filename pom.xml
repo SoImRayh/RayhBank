@@ -116,6 +116,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>rayhbank</finalName>
     </build>
 
 </project>

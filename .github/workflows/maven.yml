@@ -24,3 +24,18 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install
+
+
+    - name: Build & push docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: imrayh/rayhbank
+        tags: latest
+        registry: docker.io
+        dockerfile: dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+#login on dockerhub
+#build docekr image
+#push that image to docker hub
