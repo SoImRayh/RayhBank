@@ -28,14 +28,14 @@ services:
     container_name: app
     build: .
     volumes:
-      - .:/app
-    depends_on:
-      - db
+      - java:/java
     ports:
-      - "8080:8080"
+      - "8082:8080"
 
 volumes:
   base_cliente:
     external: true
   jenkins:
+    external: true
+  java:
     external: true

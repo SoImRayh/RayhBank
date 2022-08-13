@@ -1,0 +1,9 @@
+target/**
+out/
+initdb
+.idea
+dockerfile
+docker-compose.yml
+.dockerignore
+
+
