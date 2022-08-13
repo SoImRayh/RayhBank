@@ -10,7 +10,7 @@ services:
       - ./initdb:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_USER: $DB_USER
-      POSTGRES_DB: easysell
+      POSTGRES_DB: $DB_NAME
       POSTGRES_PASSWORD: $DB_PASSWORD
       PGDATA: /var/lib/postgresql/data/pgdata
       LANG: pt_BR.utf8
@@ -21,6 +21,10 @@ services:
       - db
     container_name: backend
     image: imrayh/rayhbank
+    environment:
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
     volumes:
       - uploads:/app/uploads
     ports:
@@ -33,7 +37,6 @@ services:
       - angular:/app
     ports:
       - "80:80"
-
 
 volumes:
   base_cliente:
