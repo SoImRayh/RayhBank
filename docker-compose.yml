@@ -28,9 +28,11 @@ services:
     volumes:
       - uploads:/app/uploads
     ports:
-      - "81:80"
+      - "8081:8080"
 
   frontend:
+    depends_on:
+    - backend
     container_name: frontend
     image: imrayh/front-angular
     volumes:
