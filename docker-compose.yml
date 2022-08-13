@@ -1,13 +1,6 @@
 version: "3.3"
 
 services:
-  jenkins:
-    container_name: jenkins
-    image: jenkins/jenkins
-    volumes:
-      - jenkins:/jenkins
-    ports:
-      - "9090:8080"
   db:
     container_name: postgres
     image: phdcoder/postgresbr
@@ -16,26 +9,36 @@ services:
       - base_cliente:/var/lib/postgresql/data/pgdata
       - ./initdb:/docker-entrypoint-initdb.d
     environment:
-      POSTGRES_USER: app
+      POSTGRES_USER: $DB_USER
       POSTGRES_DB: easysell
-      POSTGRES_PASSWORD: app2022
+      POSTGRES_PASSWORD: $DB_PASSWORD
       PGDATA: /var/lib/postgresql/data/pgdata
       LANG: pt_BR.utf8
-    ports:
-      - "5455:5432"
+#Em produção não deixa o banco de dados opostos
 
-  app:
-    container_name: app
-    build: .
+  backend:
+    depends_on:
+      - db
+    container_name: backend
+    image: imrayh/rayhbank
     volumes:
-      - java:/java
+      - uploads:/app/uploads
     ports:
-      - "8082:8080"
+      - "81:80"
+
+  frontend:
+    container_name: frontend
+    image: imrayh/front-angular
+    volumes:
+      - angular:/app
+    ports:
+      - "80:80"
+
 
 volumes:
   base_cliente:
     external: true
-  jenkins:
+  uploads:
     external: true
-  java:
+  angular:
     external: true
