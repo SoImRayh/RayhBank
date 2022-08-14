@@ -20,7 +20,8 @@ public class RayhBankApplication {
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:8081","http://localhost:80","http://localhost"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:8081","http://localhost:80","http://localhost",
+                "http://25.69.25.243:4200","http://localhost:4200"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
