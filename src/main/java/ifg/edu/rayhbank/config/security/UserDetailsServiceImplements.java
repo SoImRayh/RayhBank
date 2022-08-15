@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Service
+//@Service
 @AllArgsConstructor
-@Transactional
+//@Transactional
 public class UserDetailsServiceImplements implements UserDetailsService {
 
     private final UserRepository userRepository;
