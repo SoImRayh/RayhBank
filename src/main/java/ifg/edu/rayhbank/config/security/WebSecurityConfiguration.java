@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
 
     @Autowired
@@ -36,8 +36,8 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.authorizeHttpRequests().anyRequest().permitAll();
-        //http.addFilterAt(loginFilter, BasicAuthenticationFilter.class);
-        //http.addFilterAt(jwtFilter, BasicAuthenticationFilter.class);
+        http.addFilterAt(loginFilter, BasicAuthenticationFilter.class);
+        http.addFilterAt(jwtFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
 

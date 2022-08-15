@@ -13,14 +13,7 @@ import java.util.Arrays;
 @SpringBootApplication
 public class RayhBankApplication {
 
-    private static BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public RayhBankApplication(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
     public static void main(String[] args) {
-        System.out.println(bCryptPasswordEncoder.encode("admin"));
         SpringApplication.run(RayhBankApplication.class, args);
     }
 
