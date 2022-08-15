@@ -15,8 +15,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
 import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -30,6 +32,15 @@ public class WebSecurityConfiguration {
 
     @Autowired
     private JwtFilter jwtFilter;
+
+    /** crinando atenticação em memoria:*/
+    @Bean
+    public UserDetailsService userDetailsService() {
+        var uds = new InMemoryUserDetailsManager();
+        uds.createUser(User.builder().username("user").password("{noop}user").roles("USER").build());
+        uds.createUser(User.builder().username("admin").password("{noop}admin").roles("ADMIN", "USER").build());
+        return uds;
+    }
 
     //desabilitei aqui apenas comentando uma linha de codigo nada mais
     @Bean
