@@ -50,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
         return Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
                 .filter(auth -> auth.startsWith("bearer "))
                 .map(auth -> auth.replace("bearer ", ""))
-                .orElseThrow(() -> new BadCredentialsException("invalid token"));
+                .orElseThrow(() -> new BadCredentialsException("token invalido, por favor faça login e tente mais tarde"));
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
