@@ -27,7 +27,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfiguration {
 
 //    @Autowired
