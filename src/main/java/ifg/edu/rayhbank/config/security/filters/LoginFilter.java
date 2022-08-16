@@ -31,7 +31,7 @@ public class LoginFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var username = request.getHeader("username");
-        var password =request.getHeader("password");
+        var password = request.getHeader("password");
 
         var authenticated = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)

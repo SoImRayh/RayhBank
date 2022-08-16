@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -19,9 +20,11 @@ public class User implements UserDetails, Serializable {
     private UUID  id;
 
     @Column(name = "username",nullable = false)
+    @NotBlank
     private String username;
 
     @Column(name = "password", nullable = false)
+    @NotBlank
     private String password;
 
     @ManyToMany

@@ -19,9 +19,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("login")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> login(@RequestBody User user){
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @PostMapping("register")
+    public ResponseEntity<User> registrar(@RequestBody User user){
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 }

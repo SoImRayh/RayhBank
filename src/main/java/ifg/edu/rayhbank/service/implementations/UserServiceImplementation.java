@@ -8,13 +8,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @Service
 public class UserServiceImplementation implements UserService {
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     @Override
-    public User save(User user) {
+    public User save(@Valid User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
