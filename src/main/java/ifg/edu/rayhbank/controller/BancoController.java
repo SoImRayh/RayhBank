@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class BancoController {
     //listando todos os bancos
     @GetMapping
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<List<Banco>> list( ){
+    public ResponseEntity<List<Banco>> list(Authentication authentication){
         return ResponseEntity.ok(bancoService.listAll());
     }
 
