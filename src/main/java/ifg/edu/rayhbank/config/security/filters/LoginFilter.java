@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class LoginFilter extends OncePerRequestFilter {
 
