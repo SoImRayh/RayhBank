@@ -16,7 +16,7 @@ public class RayhBankApplication {
     public static void main(String[] args) {
         SpringApplication.run(RayhBankApplication.class, args);
     }
-
+//para fins de teste
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
