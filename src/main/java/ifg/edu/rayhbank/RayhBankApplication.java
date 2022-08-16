@@ -22,6 +22,7 @@ public class RayhBankApplication {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedOrigins(Arrays.asList(
+                "http://179.35.1.175",
                 "http://146.148.66.236" ,
                 "http://34.134.50.189",
                 "http://25.69.25.243"));
