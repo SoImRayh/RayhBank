@@ -30,21 +30,21 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
 
-    @Autowired
-    @Lazy
-    private LoginFilter loginFilter;
-
-    @Autowired
-    private JwtFilter jwtFilter;
+//    @Autowired
+//    @Lazy
+//    private LoginFilter loginFilter;
+//
+//    @Autowired
+//    private JwtFilter jwtFilter;
 
     /** crinando atenticação em memoria:*/
-    @Bean
-    public UserDetailsService userDetailsService() {
-        var uds = new InMemoryUserDetailsManager();
-        uds.createUser(User.builder().username("user").password("{noop}user").roles("USER").build());
-        uds.createUser(User.builder().username("admin").password("{noop}admin").roles("ADMIN", "USER").build());
-        return uds;
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        var uds = new InMemoryUserDetailsManager();
+//        uds.createUser(User.builder().username("user").password("{noop}user").roles("USER").build());
+//        uds.createUser(User.builder().username("admin").password("{noop}admin").roles("ADMIN", "USER").build());
+//        return uds;
+//    }
 
     //desabilitei aqui apenas comentando uma linha de codigo nada mais
     @Bean
@@ -54,12 +54,12 @@ public class WebSecurityConfiguration {
         return http.build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) throws Exception{
-        var dao = new DaoAuthenticationProvider();
-        dao.setUserDetailsService(userDetailsService);
-        return new ProviderManager(dao);
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) throws Exception{
+//        var dao = new DaoAuthenticationProvider();
+//        dao.setUserDetailsService(userDetailsService);
+//        return new ProviderManager(dao);
+//    }
 
 
     @Bean
