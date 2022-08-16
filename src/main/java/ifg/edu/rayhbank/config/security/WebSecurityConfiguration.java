@@ -48,20 +48,8 @@ public class WebSecurityConfiguration {
     //desabilitei aqui apenas comentando uma linha de codigo nada mais
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.cors().disable().csrf().disable();
-        http.authorizeHttpRequests().anyRequest().permitAll();
-        http.addFilterAt(loginFilter, BasicAuthenticationFilter.class);
-        http.addFilterAt(jwtFilter, BasicAuthenticationFilter.class);
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.exceptionHandling()
-                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    response.getWriter().println("token invalido");
-                })
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.getWriter().println("nao autenticado, nao autorizado");
-                });
+        http.csrf().disable()
+                .authorizeHttpRequests().anyRequest().permitAll();
         return http.build();
     }
 
