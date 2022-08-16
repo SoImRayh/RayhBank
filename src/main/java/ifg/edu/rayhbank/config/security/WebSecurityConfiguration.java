@@ -45,7 +45,7 @@ public class WebSecurityConfiguration {
     //desabilitei aqui apenas comentando uma linha de codigo nada mais
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable();
+        http.cors().disable().csrf().disable();
         http.authorizeHttpRequests().anyRequest().permitAll();
         http.addFilterAt(loginFilter, BasicAuthenticationFilter.class);
         http.addFilterAt(jwtFilter, BasicAuthenticationFilter.class);
