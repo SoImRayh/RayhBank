@@ -16,12 +16,16 @@ public class RayhBankApplication {
     public static void main(String[] args) {
         SpringApplication.run(RayhBankApplication.class, args);
     }
-
+//para fins de teste
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedOrigins(Arrays.asList(
+                "http://localhost",
+                "http://localhost:4200",
+                "http://179.35.1.175",
+                "http://179.35.1.175:4200",
                 "http://146.148.66.236" ,
                 "http://34.134.50.189",
                 "http://25.69.25.243"));
