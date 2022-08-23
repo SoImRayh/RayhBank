@@ -18,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/remmessas")
+@RequestMapping("api/remessas")
 @RequiredArgsConstructor
 public class RemessasController {
 
@@ -29,7 +29,7 @@ public class RemessasController {
         var remessa = remessaService.save(file);
         var downloadURL = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .path("/download/")
+                .path("api/remessas/download/")
                 .path(remessa
                         .getUuid()
                         .toString())
@@ -42,8 +42,8 @@ public class RemessasController {
 
     }
     @GetMapping("download/{id}")
-    public ResponseEntity<Resource> getone(@PathVariable UUID uuid)throws Exception{
-        var remessa = remessaService.getOne(uuid).orElseThrow(()-> new Exception("not found"));
+    public ResponseEntity<Resource> getone(@PathVariable UUID id)throws Exception{
+        var remessa = remessaService.getOne(id).orElseThrow(()-> new Exception("not found"));
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(remessa.getFileType()))
