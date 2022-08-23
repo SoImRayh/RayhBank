@@ -1,66 +1,65 @@
 package ifg.edu.rayhbank.config.security;
 
-import ifg.edu.rayhbank.config.security.filters.JwtFilter;
-import ifg.edu.rayhbank.config.security.filters.LoginFilter;
-import lombok.var;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
-import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
-import javax.servlet.http.HttpServletResponse;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 
 @Configuration
-public class WebSecurityConfiguration {
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Value("${jwt.public.key}")
+    RSAPublicKey publicKey;
 
-//    @Autowired
-//    @Lazy
-//    private LoginFilter loginFilter;
-//
-//    @Autowired
-//    private JwtFilter jwtFilter;
+    @Value("${jwt.private.key}")
+    RSAPrivateKey privateKey;
 
-    /** crinando atenticação em memoria:*/
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        var uds = new InMemoryUserDetailsManager();
-//        uds.createUser(User.builder().username("user").password("{noop}user").roles("USER").build());
-//        uds.createUser(User.builder().username("admin").password("{noop}admin").roles("ADMIN", "USER").build());
-//        return uds;
-//    }
+    private final UserDetailsService userDetailsService;
 
-    //desabilitei aqui apenas comentando uma linha de codigo nada mais
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeHttpRequests().anyRequest().permitAll();
-        return http.build();
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    @Override
+    public void configure(HttpSecurity httpSecurity) throws Exception{
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated();
     }
 
-//    @Bean
-//    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) throws Exception{
-//        var dao = new DaoAuthenticationProvider();
-//        dao.setUserDetailsService(userDetailsService);
-//        return new ProviderManager(dao);
-//    }
-
-
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+    @Bean
+    JwtEncoder jwtEncoder() {
+        JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(this.privateKey).build();
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        return new NimbusJwtEncoder(jwks);
+    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
